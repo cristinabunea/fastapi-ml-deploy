@@ -1,21 +1,20 @@
-from fastapi import FastAPI, Request, Form
+from fastapi import FastAPI, Form
 from fastapi.responses import HTMLResponse
 from transformers import pipeline
-import uvicorn
 
 app = FastAPI()
 classifier = pipeline("sentiment-analysis")
 
 @app.get("/", response_class=HTMLResponse)
-async def root():
+async def read_root():
     return """
     <html>
-        <head><title>Sentiment Tester</title></head>
+        <head><title>Sentiment App</title></head>
         <body>
-            <h2>Enter text to analyze:</h2>
-            <form action="/predict" method="post">
-                <input name="text" type="text" size="60"/>
-                <input type="submit"/>
+            <h1>Test sentiment</h1>
+            <form method="post" action="/predict">
+                <input name="text" type="text" size="60">
+                <input type="submit">
             </form>
         </body>
     </html>
